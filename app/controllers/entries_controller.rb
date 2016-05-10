@@ -9,14 +9,14 @@ class EntriesController < ApplicationController
   end
 
   def create
-    entry = Entry.create(params[:entry])
+    entry = Entry.create(name: params[:name])
     respond_to do |format|
       format.json { render json: entry }
     end
   end
 
   def update
-    entry = Entry.update(params[:id], params[:entry])
+    entry = Entry.update(params[:id], params.permit(:id, :name, :winner))
     respond_to do |format|
       format.json { render json: entry }
     end
