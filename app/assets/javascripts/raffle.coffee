@@ -8,10 +8,12 @@ raffler.config ($httpProvider) ->
   authToken = $("meta[name=\"csrf-token\"]").attr("content")
   $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken
 
+raffler.factory "Entry", ["$resource", ($resource) ->
+  $resource("/entries/:id", {id: "@id"}, {update: {method: "PUT"}})
+]
 
-raffler.controller "RaffleCtrl", ($scope, $resource) ->
 
-  Entry = $resource("/entries/:id", {id: "@id"}, {update: {method: "PUT"}})
+raffler.controller "RaffleCtrl", ["$scope", "Entry", ($scope, Entry) ->
 
   $scope.entries = Entry.query()
 
@@ -31,3 +33,5 @@ raffler.controller "RaffleCtrl", ($scope, $resource) ->
       entry.winner = true
       entry.$update()
       $scope.lastWinner = entry
+
+]
