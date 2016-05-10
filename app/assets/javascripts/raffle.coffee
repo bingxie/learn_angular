@@ -12,3 +12,8 @@ raffler.controller "RaffleCtrl", ($scope) ->
     {name: "Larry"}
     {name: "Moe"}
   ]
+
+  $scope.addEntry = ->
+    console.log $scope.newEntry
+    $scope.entries.push($scope.newEntry)
+    $scope.newEntry = {}
